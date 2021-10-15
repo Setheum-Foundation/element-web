@@ -214,6 +214,6 @@ export default class WebPlatform extends VectorBasePlatform {
     reload() {
         // forceReload=false since we don't really need new HTML/JS files
         // we just need to restart the JS runtime.
-        window.location.reload(false);
+        window.location.reload();
     }
 }

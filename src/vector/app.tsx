@@ -42,6 +42,11 @@ let lastLocationHashSet: string = null;
 
 logger.log(`Application is running in ${process.env.NODE_ENV} mode`);
 
+// Expose logger instance for development purposes on dev environment
+if (process.env.NODE_ENV === "development") {
+    (window as any).mx_logger = logger;
+}
+
 // Parse the given window.location and return parameters that can be used when calling
 // MatrixChat.showScreen(screen, params)
 function getScreenFromLocation(location: Location) {

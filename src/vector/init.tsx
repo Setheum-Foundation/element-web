@@ -35,6 +35,8 @@ import { setTheme } from "matrix-react-sdk/src/theme";
 
 import { initRageshake, initRageshakeStore } from "./rageshakesetup";
 
+import { logger } from "matrix-js-sdk/src/logger";
+
 export const rageshakePromise = initRageshake();
 
 export function preparePlatform() {
@@ -63,7 +65,7 @@ export async function loadConfig() {
     // granular settings are loaded correctly and to avoid duplicating the override logic for the theme.
     //
     // Note: this isn't called twice for some wrappers, like the Jitsi wrapper.
-    SdkConfig.put(await PlatformPeg.get().getConfig() || {});
+    SdkConfig.put((await PlatformPeg.get().getConfig()) || {});
 }
 
 export function loadOlm(): Promise<void> {
@@ -118,7 +120,7 @@ export async function loadLanguage() {
         await languageHandler.setLanguage(langs);
         document.documentElement.setAttribute("lang", languageHandler.getCurrentLanguage());
     } catch (e) {
-        console.error("Unable to set language", e);
+        logger.error("Unable to set language", e);
     }
 }
 
